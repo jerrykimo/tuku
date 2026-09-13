@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片收藏库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d9a545'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <div class="brand-text">
+        <h1 id="wordmark">图库</h1>
+        <span class="brand-sub">GALLERY</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="stat" id="stat"></span>
+      <button id="btn-changelog" class="tb-btn tb-btn-ghost" title="查看版本更新">版本更新</button>
+      <button id="btn-collections" class="tb-btn tb-btn-ghost" title="管理合集">合集</button>
+      <button id="btn-trash" class="tb-btn tb-btn-ghost" title="打开回收站">回收站 <span id="trash-count" class="count-badge">0</span></button>
+      <button id="btn-backup" class="tb-btn tb-btn-ghost" title="备份图库">备份</button>
+      <button id="btn-shuffle" class="icon-btn" title="随机看看" aria-label="随机看看">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.8-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg>
+      </button>
+      <button id="btn-theme" class="icon-btn" title="切换主题" aria-label="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="搜索标题、描述或标签…" autocomplete="off" spellcheck="false">
+    </div>
+    <button id="btn-add" class="tb-btn" title="添加图片" aria-label="添加图片">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      添加图片
+    </button>
+    <button id="btn-select" class="tb-btn tb-btn-secondary" title="选择多张图片">选择</button>
+    <label class="sort">
+      <span>排序</span>
+      <select id="sort">
+        <option value="new">最新加入</option>
+        <option value="old">最早加入</option>
+        <option value="name">标题 A-Z</option>
+        <option value="shuffle">随机</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="color-filter" id="color-filter" aria-label="按颜色筛选">
+    <span class="bar-label">颜色</span>
+    <div class="color-strip" id="color-strip" role="slider" aria-label="选择颜色" aria-valuemin="0" aria-valuemax="360" tabindex="0" title="点击色带，按颜色筛选图片">
+      <span class="color-marker" id="color-marker"></span>
+    </div>
+    <button id="color-clear" class="chip" hidden>清除颜色</button>
+    <span id="color-count" class="color-count"></span>
+  </section>
+
+  <section class="chips-row" id="cat-bar" aria-label="分类"></section>
+  <section class="chips-row tags" id="tag-bar" aria-label="标签"></section>
+  <section class="chips-row collections" id="collection-bar" aria-label="收藏与合集"></section>
+  <section class="active-row" id="active-bar" hidden></section>
+
+  <section class="selection-bar hidden" id="selection-bar" aria-label="批量操作">
+    <strong id="selection-count">已选 0 张</strong>
+    <span class="selection-hint">可批量编辑或比较 · ⌫ 移入回收站 · F 收藏</span>
+    <div class="selection-actions">
+      <button id="batch-favorite" class="chip">设为收藏</button>
+      <button id="batch-unfavorite" class="chip">取消收藏</button>
+      <button id="batch-tag" class="chip">加标签</button>
+      <button id="batch-category" class="chip">改分类</button>
+      <button id="batch-collection" class="chip">加入合集</button>
+      <button id="batch-compare" class="chip" disabled>比较</button>
+      <button id="batch-collage" class="chip" disabled>拼贴导出</button>
+      <button id="batch-delete" class="chip danger">移入回收站</button>
+      <button id="batch-clear" class="chip">取消选择</button>
+    </div>
+  </section>
+
+  <section id="grid" class="grid"></section>
+  <section id="empty" class="empty hidden"></section>
+
+</main>
+
+<div id="lb" class="lb hidden" aria-hidden="true">
+  <div class="lb-back" id="lb-back"></div>
+  <button class="lb-favorite icon-btn" id="lb-favorite" aria-label="收藏" title="收藏（F）">☆</button>
+  <button class="lb-close icon-btn" id="lb-close" aria-label="关闭">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lb-delete icon-btn" id="lb-delete" aria-label="移入回收站" title="移入回收站（⌫）">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/></svg>
+  </button>
+  <button class="lb-nav lb-prev" id="lb-prev" aria-label="上一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+  </button>
+  <button class="lb-nav lb-next" id="lb-next" aria-label="下一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+  </button>
+  <div class="lb-stage">
+    <img id="lb-img" alt="">
+    <div class="lb-caption">
+      <div class="lb-head">
+        <span id="lb-num" class="lb-num"></span>
+        <h2 id="lb-title"></h2>
+        <span class="lb-cat" id="lb-cat"></span>
+      </div>
+      <p id="lb-desc" class="lb-desc"></p>
+      <div class="lb-tags" id="lb-tags"></div>
+      <div class="lb-meta">
+        <span id="lb-date"></span>
+        <a id="lb-orig" href="#" target="_blank" rel="noopener">查看原图 ↗</a>
+        <button id="lb-collections" class="lb-finder-btn">加入合集</button>
+        <button id="lb-finder" class="lb-finder-btn hidden">在 Finder 中显示</button>
+      </div>
+      <div class="lb-kbd">
+        <kbd>←</kbd><kbd>→</kbd> 翻页&nbsp;&nbsp;
+        <kbd>F</kbd> 收藏&nbsp;&nbsp;
+        <kbd>⌫</kbd> 移入回收站&nbsp;&nbsp;
+        <kbd>Esc</kbd> 关闭
+      </div>
+    </div>
+    <span class="lb-count" id="lb-count"></span>
+  </div>
+</div>
+
+<div id="collections-dialog" class="panel-overlay hidden" aria-hidden="true">
+  <div class="panel-back" data-close-panel="collections"></div>
+  <section class="panel-box collections-panel" role="dialog" aria-modal="true" aria-labelledby="collections-title">
+    <header class="panel-header">
+      <div>
+        <h2 id="collections-title">合集与灵感板</h2>
+        <p id="collections-subtitle">把图片按项目、用途或灵感方向整理起来。</p>
+      </div>
+      <button id="collections-close" class="icon-btn" aria-label="关闭">×</button>
+    </header>
+    <div id="collection-list" class="collection-list"></div>
+    <footer class="panel-footer">
+      <button id="new-collection" class="tb-btn">新建合集</button>
+      <button id="collections-done" class="chip">完成</button>
+    </footer>
+  </section>
+</div>
+
+<div id="compare-dialog" class="panel-overlay hidden" aria-hidden="true">
+  <div class="panel-back" data-close-panel="compare"></div>
+  <section class="panel-box compare-panel" role="dialog" aria-modal="true" aria-labelledby="compare-title">
+    <header class="panel-header">
+      <div>
+        <h2 id="compare-title">比较参考图</h2>
+        <p id="compare-subtitle">选中的图片会并排展示。</p>
+      </div>
+      <button id="compare-close" class="icon-btn" aria-label="关闭">×</button>
+    </header>
+    <div id="compare-grid" class="compare-grid"></div>
+    <footer class="panel-footer">
+      <span class="panel-note">最多比较 6 张</span>
+      <div class="panel-footer-actions">
+        <button id="compare-export" class="tb-btn">导出拼贴图</button>
+        <button id="compare-done" class="chip">完成</button>
+      </div>
+    </footer>
+  </section>
+</div>
+
+<div id="trash-dialog" class="panel-overlay hidden" aria-hidden="true">
+  <div class="panel-back" data-close-panel="trash"></div>
+  <section class="panel-box trash-panel" role="dialog" aria-modal="true" aria-labelledby="trash-title">
+    <header class="panel-header">
+      <div>
+        <h2 id="trash-title">回收站</h2>
+        <p>移入回收站的图片仍可恢复；清空后才会彻底删除。</p>
+      </div>
+      <button id="trash-close" class="icon-btn" aria-label="关闭">×</button>
+    </header>
+    <div id="trash-list" class="trash-list"></div>
+    <footer class="panel-footer">
+      <button id="empty-trash" class="chip danger">彻底清空</button>
+      <button id="trash-done" class="chip">完成</button>
+    </footer>
+  </section>
+</div>
+
+<div id="changelog-dialog" class="panel-overlay hidden" aria-hidden="true">
+  <div class="panel-back" data-close-panel="changelog"></div>
+  <section class="panel-box changelog-panel" role="dialog" aria-modal="true" aria-labelledby="changelog-title">
+    <header class="panel-header">
+      <div>
+        <h2 id="changelog-title">版本更新</h2>
+        <p id="changelog-subtitle">查看每个版本的新增功能、Bug 修复和其他修改。</p>
+      </div>
+      <button id="changelog-close" class="icon-btn" aria-label="关闭">×</button>
+    </header>
+    <div id="changelog-list" class="changelog-list"></div>
+    <footer class="panel-footer">
+      <span class="panel-note changelog-source">记录位置：<code>docs/CHANGES.md</code></span>
+      <button id="changelog-done" class="chip">完成</button>
+    </footer>
+  </section>
+</div>
+
+<div id="confirm-dialog" class="confirm-overlay hidden" aria-hidden="true">
+  <div class="confirm-back"></div>
+  <div class="confirm-box">
+    <h3 id="confirm-title">确认操作</h3>
+    <p id="confirm-message"></p>
+    <div class="confirm-actions">
+      <button id="confirm-cancel" class="chip">取消</button>
+      <button id="confirm-ok" class="chip on">确认</button>
+    </div>
+  </div>
+</div>
+
+<script src="library-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

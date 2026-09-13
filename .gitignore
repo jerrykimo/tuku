@@ -1,0 +1,27 @@
+# 每个人自己的图库和生成数据，保留在本机
+/images/
+/thumbs/
+/trash/
+/library.json
+/library-data.js
+/图库备份-*/
+/backups/
+
+# 安装依赖、构建产物、缓存
+node_modules/
+/release/
+/dist/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+
+# 本机工具状态和凭据
+.workbuddy/
+.codex/
+.agents/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
