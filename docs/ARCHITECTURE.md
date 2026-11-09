@@ -2,7 +2,7 @@
 
 ## 总览
 
-这是一个单机 Electron 应用，没有远程数据库或外部 API。图片和元数据都位于 Dropbox 项目目录；打包后的 App 只是启动器和界面载体。
+这是一个单机 Electron 应用，没有远程数据库或外部 API。图片和元数据都位于本机项目目录 `~/github/图片收藏库`；打包后的 App 只是启动器和界面载体。
 
 ```mermaid
 flowchart LR
@@ -12,7 +12,7 @@ flowchart LR
   B --> E["images/ 原图"]
   B --> F["thumbs/ 缩略图"]
   B --> G["trash/ 回收站"]
-  H["/Applications/图库.app"] --> I["Dropbox 项目目录"]
+  H["/Applications/图库.app"] --> I["~/github/图片收藏库"]
   C --> I
   E --> I
   F --> I
@@ -34,7 +34,7 @@ flowchart LR
 `gallery.js` 根据运行方式选择数据根目录：
 
 - 开发模式：使用源码目录 `__dirname`。
-- 打包模式：使用固定的 `/Users/wangwei/Library/CloudStorage/Dropbox/_projects/图片收藏库`。
+- 打包模式：使用固定的 `~/github/图片收藏库`（按当前用户的主目录拼出来）。
 
 如果项目搬到其他路径，需要同步修改 `gallery.js` 的 `PROJECT_DIR`，再重新打包；否则 `/Applications/图库.app` 仍会指向旧目录。
 

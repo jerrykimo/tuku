@@ -1,10 +1,11 @@
 const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron');
 const path = require('path');
+const os = require('os');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 
-// 开发模式用 __dirname（项目文件夹）；打包后指向外部数据目录（Dropbox）
-const PROJECT_DIR = '/Users/wangwei/Library/CloudStorage/Dropbox/_projects/图片收藏库';
+// 开发模式用 __dirname（项目文件夹）；打包后指向外部数据目录（~/github/图片收藏库）
+const PROJECT_DIR = path.join(os.homedir(), 'github', '图片收藏库');
 const ROOT = app.isPackaged ? PROJECT_DIR : __dirname;
 const IMG_DIR = path.join(ROOT, 'images');
 const THUMB_DIR = path.join(ROOT, 'thumbs');
@@ -250,7 +251,7 @@ function parseChangelog(markdown) {
 }
 
 function loadChangelog() {
-  // 打包版从 Dropbox 项目目录读取，更新记录后不必为了文档改动重新打包 App。
+  // 打包版从外部项目目录读取，更新记录后不必为了文档改动重新打包 App。
   const file = path.join(ROOT, 'docs', 'CHANGES.md');
   try {
     return parseChangelog(fs.readFileSync(file, 'utf-8'));

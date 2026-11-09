@@ -44,7 +44,7 @@
 
   function $(id) { return document.getElementById(id); }
 
-  // 打包版界面位于 app.asar，原图和缩略图位于外部 Dropbox 数据目录。
+  // 打包版界面位于 app.asar，原图和缩略图位于外部数据目录（~/github/图片收藏库）。
   // Electron 启动时由主进程提供 assetRoot；直接打开 index.html 时继续使用相对路径。
   function assetUrl(relPath) {
     var value = String(relPath || "");
@@ -456,7 +456,7 @@
         '<div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="m21 15-4.5-4.5L6 21"/></svg></div>' +
         "<h3>等待第一张图片</h3>" +
         "<p>把喜欢的图片直接发给小耳，我会自动分类、打标签、存进这里。<br>点击「添加图片」按钮选图，或运行 <code>python add.py add 图片路径</code> 手动入库。</p>" +
-        '<div class="hint">图片存于本机 images/ 目录 · 所有数据在 Dropbox 自动同步</div>';
+        '<div class="hint">图片存于本机 images/ 目录</div>';
     } else {
       els.empty.innerHTML =
         '<div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>' +

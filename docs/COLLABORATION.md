@@ -24,7 +24,7 @@ npm start
 
 启动后用「添加图片」导入自己准备的测试图片即可。Electron 内的图片处理使用 npm 安装的 sharp；CLI 如需完整缩略图和主色处理，可在 Python 虚拟环境中安装 Pillow。
 
-目前主要在 macOS Apple Silicon 上使用和打包。其他平台尚未验收。当前打包版固定读取原维护者电脑上的 Dropbox 路径，所以朋友先用 `npm start` 开发和试用；在解决目录配置之前，不要把 `npm run build` 的结果视为通用安装包。具体见 [架构说明](ARCHITECTURE.md)。
+目前主要在 macOS Apple Silicon 上使用和打包。其他平台尚未验收。当前打包版固定读取 `~/github/图片收藏库`，所以朋友先用 `npm start` 开发和试用；在解决目录配置之前，不要把 `npm run build` 的结果视为通用安装包。具体见 [架构说明](ARCHITECTURE.md)。
 
 ## 每次改一个功能
 

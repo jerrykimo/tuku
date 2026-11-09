@@ -23,7 +23,7 @@ node -p "require('./package.json').version"
 plutil -p release/图库.app/Contents/Info.plist | rg 'CFBundleShortVersionString|CFBundleVersion'
 ```
 
-打开 App 后，顶部的 `APP · v...` 标记也会显示打包版本。当前版本为 `0.4.3`。
+打开 App 后，顶部的 `APP · v...` 标记也会显示打包版本。当前版本为 `0.4.4`。
 
 版本更新记录：打开 App 顶部的「版本更新」面板查看；记录源文件是 `docs/CHANGES.md`。每个版本按「新增功能 / Bug 修复 / 其他修改」分组填写，面板会在打开时重新读取。
 
