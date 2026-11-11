@@ -29,6 +29,6 @@ Electron 桌面应用。图片本地存储，AI 负责分类+打标签入库，A
 - `library-data.js` 是生成文件，绝不手改
 
 ## 环境
-- Python 脚本：`/Users/wangwei/.workbuddy/binaries/python/envs/default/bin/python`（已装 Pillow）
+- Python 脚本：使用本机 Python 3；需要完整图片处理时，在虚拟环境中安装 Pillow
 - APP 启动：`npm start` / `npx electron .` / 双击 `/Applications/图库.app`
 - 详情见 `使用说明.md`

@@ -25,3 +25,8 @@ __pycache__/
 !.env.example
 *.pem
 *.key
+
+# 本机进度及其他签名凭据
+/进度.md
+*.p12
+*.pfx
