@@ -1,13 +1,32 @@
-# 图片收藏库
+# 图片收藏库 · Tuku
+
+**作者：Wayne Wang（GitHub：[@jerrykimo](https://github.com/jerrykimo)）**
+
 
 本地 macOS Electron 图片管理应用：图片保存在项目目录，应用负责浏览、搜索、编辑、收藏、整理和安全删除。
 
 当前应用版本：**0.4.4**。版本号来自 `package.json`，也会显示在 App 顶部的 `APP · v0.4.4` 标记中。
 
+## 快速开始
+
+需要 Node.js 22.12+、npm 和 Python 3。主要在 macOS Apple Silicon 上使用；其他平台尚未验收。
+
+```sh
+git clone https://github.com/jerrykimo/tuku.git
+cd tuku
+npm ci
+python3 add.py rebuild
+npm start
+```
+
+首次运行会创建空图库；点击「添加图片」导入自己的素材。CLI 的完整缩略图和主色提取可选安装 Pillow：`python3 -m pip install Pillow`（建议使用虚拟环境）。
+
+**当前提供源码运行方式。** 打包版固定读取 `~/github/图片收藏库`，还不是适用于任意安装路径的通用安装包。新用户请先按上面的方式启动，不要把本机打包产物直接当作独立安装包分发。
+
 ## 先从这里开始
 
 - 朋友接手与 GitHub 协作：阅读 [两人协作说明](docs/COLLABORATION.md)。全新副本先运行 `npm ci` 和 `python3 add.py rebuild`，再运行 `npm start`；个人图库不会随代码下载。
-- 日常使用：打开 `/Applications/图库.app`
+- 已有本机安装：打开 `/Applications/图库.app`（需满足下方的数据目录规则）
 - 开发运行：`npm start` 或 `npx electron .`
 - 重新打包：`npm run build`，产物在 `release/图库.app`
 - 使用和 CLI 命令：阅读 [使用说明.md](使用说明.md)
@@ -39,3 +58,11 @@
 ## 规则与文档
 
 `CLAUDE.md` 是项目规则的源文件，`AGENTS.md` 是同一份规则的入口。完整文档索引见 [CLAUDE.md](CLAUDE.md)。
+
+## 开源与署名
+
+Copyright © 2026 **Wayne Wang（GitHub：@jerrykimo）**。
+
+本项目源代码采用 [MIT License](LICENSE)，允许使用、修改和再分发（包括商业用途）。分发本项目或其重要组成部分时，必须保留版权署名和完整许可证声明。第三方依赖沿用各自的许可证；导入图库的图片不因使用本工具而改变其版权归属。
+
+发现问题或有改进建议，欢迎提交 [Issues](https://github.com/jerrykimo/tuku/issues) 或 Pull Request。协作流程见 [docs/COLLABORATION.md](docs/COLLABORATION.md)。

@@ -5,7 +5,7 @@
   "main": "gallery.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . 图库 --platform=darwin --arch=arm64 --out=release --overwrite --icon=icon.icns --app-bundle-id=me.wangwei.tuku && node postbuild.js"
+    "build": "electron-packager . 图库 --platform=darwin --arch=arm64 --out=release --overwrite --icon=icon.icns --app-bundle-id=me.wangwei.tuku --app-copyright=\"Copyright (c) 2026 Wayne Wang (GitHub: @jerrykimo)\" && node postbuild.js"
   },
   "dependencies": {
     "sharp": "^0.33.0"
@@ -13,5 +13,18 @@
   "devDependencies": {
     "@electron/packager": "^20.3.0",
     "electron": "^33.0.0"
+  },
+  "author": {
+    "name": "Wayne Wang",
+    "url": "https://github.com/jerrykimo"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerrykimo/tuku.git"
+  },
+  "homepage": "https://github.com/jerrykimo/tuku#readme",
+  "bugs": {
+    "url": "https://github.com/jerrykimo/tuku/issues"
   }
 }
