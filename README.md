@@ -1,13 +1,23 @@
-# 图片收藏库 · Tuku
+# 图库 · Tuku
 
-**作者：Wayne Wang（GitHub：[@jerrykimo](https://github.com/jerrykimo)）**
+**个人参考图与好看图片的收藏管理 App。**
 
+把喜欢的画面收进自己的图库：绘画参考、摄影、角色设定、场景、配色、设计灵感，或任何想留住的图片。按自己的分类和标签整理，需要时快速找回，也可以随时翻看收藏寻找灵感。
 
-本地 macOS Electron 图片管理应用：图片保存在项目目录，应用负责浏览、搜索、编辑、收藏、整理和安全删除。
+作者：**Wayne Wang（GitHub：[@jerrykimo](https://github.com/jerrykimo)）**。当前版本：**0.4.5**。
 
-当前应用版本：**0.4.4**。版本号来自 `package.json`，也会显示在 App 顶部的 `APP · v0.4.4` 标记中。
+## 用它做什么
 
-## 快速开始
+- **收集参考**：导入图片，用瀑布流浏览和大图预览慢慢挑选。
+- **整理收藏**：编辑标题、描述、分类和标签，标记喜欢的图片。
+- **找回灵感**：按关键词、标签、分类、主色或编号搜索筛选。
+- **建立灵感板**：把图片加入合集，按创作主题、项目或个人喜好整理。
+- **对比参考**：并排比较 2–6 张图片，导出拼贴参考图。
+- **批量管理**：多选加标签、改分类、收藏或整理合集。
+- **本地保存**：原图和元数据留在自己的电脑，支持回收站、恢复和独立备份。
+- **随手翻看**：随机浏览、深浅主题和 Finder 定位。
+
+## 开始使用
 
 需要 Node.js 22.12+、npm 和 Python 3。主要在 macOS Apple Silicon 上使用；其他平台尚未验收。
 
@@ -19,50 +29,37 @@ python3 add.py rebuild
 npm start
 ```
 
-首次运行会创建空图库；点击「添加图片」导入自己的素材。CLI 的完整缩略图和主色提取可选安装 Pillow：`python3 -m pip install Pillow`（建议使用虚拟环境）。
+第一次启动是空图库。点击「添加图片」，选中你想收藏的参考图或图片，再按自己的习惯填写分类、标签和描述。
 
-**当前提供源码运行方式。** 打包版固定读取 `~/github/图片收藏库`，还不是适用于任意安装路径的通用安装包。新用户请先按上面的方式启动，不要把本机打包产物直接当作独立安装包分发。
+CLI 的完整缩略图和主色处理可选安装 Pillow：`python3 -m pip install Pillow`（建议使用虚拟环境）。日常图片导入可直接在 App 中完成。
 
-## 先从这里开始
+**目前公开提供源码启动方式。** 现有打包版固定读取 `~/github/图片收藏库`，还不是适用于任意安装路径的通用安装包。打包命令为 `npm run build`，产物位于 `release/图库.app`；使用前请先阅读[数据目录说明](docs/ARCHITECTURE.md#运行时路径)。
 
-- 朋友接手与 GitHub 协作：阅读 [两人协作说明](docs/COLLABORATION.md)。全新副本先运行 `npm ci` 和 `python3 add.py rebuild`，再运行 `npm start`；个人图库不会随代码下载。
-- 已有本机安装：打开 `/Applications/图库.app`（需满足下方的数据目录规则）
-- 开发运行：`npm start` 或 `npx electron .`
-- 重新打包：`npm run build`，产物在 `release/图库.app`
-- 使用和 CLI 命令：阅读 [使用说明.md](使用说明.md)
-- 接手代码：先阅读 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 和 [docs/OPERATIONS.md](docs/OPERATIONS.md)
+## 你的图片保存在这里
 
-## 已有功能
+开发运行时，图片保存在项目目录；GitHub 仓库只提供 App 源代码。
 
-- 按标题、描述、标签、分类、编号搜索和筛选
-- 收藏与合集（灵感板）
-- 多选后批量加标签、改分类、收藏、加入合集或删除
-- 选择 2–6 张图片并排比较，导出拼贴参考图
-- 回收站、恢复、彻底清空和独立备份
-- 主色筛选、深浅主题、随机浏览和 Finder 定位
-- 顶部「版本更新」入口：查看每个版本的新增功能、Bug 修复和其他修改
+| 内容 | 本机位置 |
+|---|---|
+| 原图 | `images/` |
+| 缩略图 | `thumbs/` |
+| 分类、标签、收藏、合集等记录 | `library.json` |
+| 自动生成的界面数据 | `library-data.js` |
+| 可恢复的删除内容 | `trash/` |
 
-## 数据规则
+个人图库与生成数据已由 `.gitignore` 排除，不会随普通代码提交上传。换电脑时，代码可重新下载，图片和元数据需要单独备份和迁移。
 
-- `library.json` 是唯一的元数据源，记录图片、分类、合集、收藏和回收站信息。
-- `library-data.js` 是生成文件，修改 `library.json` 后运行 `python3 add.py rebuild`，不要手动编辑它。
-- `images/` 保存原图，`thumbs/` 保存缩略图，`trash/` 保存待恢复的原图和缩略图。
-- 打包后的 App 读取 `~/github/图片收藏库`；源码和图片数据不在 `.app` 内。
+## 使用说明
 
-## 版本规则
+- [日常收藏、整理与快捷键](使用说明.md)
+- [启动、构建、备份与恢复](docs/OPERATIONS.md)
+- [架构与数据目录](docs/ARCHITECTURE.md)
+- [版本更新](docs/CHANGES.md)
 
-项目处于 0.x 阶段：新增功能递增中间数字 x，例如 `0.4.0 → 0.5.0`；小修正、Bug、图标和样式调整只递增末位数字 y，例如 `0.4.0 → 0.4.1`。两类修改都要同步更新 `package.json` 与说明文档；只做文档或整理时不增加功能版本。
-
-每次发布版本时，在 [docs/CHANGES.md](docs/CHANGES.md) 对应版本下按「新增功能 / Bug 修复 / 其他修改」记录；App 内的「版本更新」面板会自动读取这份记录。
-
-## 规则与文档
-
-`CLAUDE.md` 是项目规则的源文件，`AGENTS.md` 是同一份规则的入口。完整文档索引见 [CLAUDE.md](CLAUDE.md)。
+发现问题或有使用建议，欢迎提交 [Issue](https://github.com/jerrykimo/tuku/issues)。
 
 ## 开源与署名
 
 Copyright © 2026 **Wayne Wang（GitHub：@jerrykimo）**。
 
-本项目源代码采用 [MIT License](LICENSE)，允许使用、修改和再分发（包括商业用途）。分发本项目或其重要组成部分时，必须保留版权署名和完整许可证声明。第三方依赖沿用各自的许可证；导入图库的图片不因使用本工具而改变其版权归属。
-
-发现问题或有改进建议，欢迎提交 [Issues](https://github.com/jerrykimo/tuku/issues) 或 Pull Request。协作流程见 [docs/COLLABORATION.md](docs/COLLABORATION.md)。
+本项目源代码采用 [MIT License](LICENSE)，允许使用、修改和再分发（包括商业用途）。分发本项目或其重要组成部分时，必须保留版权署名和完整许可证声明。第三方依赖沿用各自许可证；导入图库的图片不因使用本工具而改变其版权归属。

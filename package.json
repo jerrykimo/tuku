@@ -1,7 +1,7 @@
 {
   "name": "tuku",
-  "version": "0.4.4",
-  "description": "图片收藏库 — 本地图片管理桌面应用",
+  "version": "0.4.5",
+  "description": "图库 — 个人参考图与好看图片的收藏管理 App",
   "main": "gallery.js",
   "scripts": {
     "start": "electron .",
